@@ -1,0 +1,29 @@
+\begin{table}[t]
+    \centering
+    \setlength\dashlinedash{0.2pt}
+    \setlength\dashlinegap{1.5pt}
+    \caption{Inference frequency of synchronous and asynchronous systems (Async-inf-robo).}
+    \label{tab:async_inference_robot}
+    \vspace{0.5em}
+    \scalebox{0.85}{
+\begin{tabular}{@{} L{5em} L{6em} R{4em} R{6em} R{6em} R{4em} @{}}
+\toprule
+\textbf{Hardware} & \textbf{Network} & \textbf{Latency} & \textbf{Freq. (Sync)} & \textbf{Freq. (Async)} & \textbf{Speedup} \\
+\midrule
+B100 & Ethernet 10G & 3.3 ms & 301.4 Hz & 314.4 Hz & \cellcolor{lightgray} 1.04$\times$ \\
+\hdashline
+B100 & Ethernet 1G & 3.8 ms & 266.5 Hz & 314.4 Hz & \cellcolor{lightgray} 1.18$\times$ \\
+\hdashline
+B100 & WiFi 7 & 8.4 ms & 119.7 Hz & 314.4 Hz & \cellcolor{lightgray} 2.63$\times$ \\
+\hdashline
+B100 & 5G & 27.8 ms & 35.9 Hz & 215.3 Hz & \cellcolor{lightgray} 5.99$\times$ \\
+\hdashline
+B100 & 4G & 73.0 ms & 13.7 Hz & 50.5 Hz & \cellcolor{lightgray} 3.68$\times$ \\
+\midrule
+B100 & Wired + Fast Cloud & 23.4 ms & 42.8 Hz & 314.4 Hz & \cellcolor{lightgray} 7.34$\times$ \\
+\hdashline
+B100 & 4G + Slow Cloud & 273.4 ms & 3.7 Hz & 50.5 Hz & \cellcolor{lightgray} 13.79$\times$ \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

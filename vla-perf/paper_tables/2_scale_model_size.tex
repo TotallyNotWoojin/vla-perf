@@ -1,0 +1,53 @@
+\begin{table*}[t]
+    \centering
+    \setlength\dashlinedash{0.2pt}
+    \setlength\dashlinegap{1.5pt}
+    \caption{Inference performance of scaled-up VLA models across different hardware platforms.}
+    \label{tab:pi0_model_scaling}
+    % \vspace{0.5em}
+    \scalebox{0.76}{
+\begin{tabular}{@{} L{6.5em} R{8em} R{8em} R{7em} R{5em} R{4.5em} R{4.5em} @{}}
+\toprule
+\textbf{Model}
+& \multicolumn{1}{c}{\textbf{Vision Encoder}}
+& \multicolumn{1}{c}{\textbf{VLM}}
+& \multicolumn{1}{c}{\textbf{Action Expert}}
+& \multicolumn{1}{c}{\textbf{Jetson Thor}}
+& \multicolumn{1}{c}{\textbf{RTX 4090}}
+& \multicolumn{1}{c}{\textbf{B100}} \\
+\midrule
+$\pi_0$ (2.7B)
+& SigLIP-So (0.4B)
+& Gemma-2B (2.0B)
+& Act-M (0.3B)
+& \cellcolor{lightgray}19.0 Hz
+& \cellcolor{lightgray}32.2 Hz
+& \cellcolor{lightgray}314.4 Hz \\
+\hdashline
+$\pi_0$-L (9.1B)
+& SigLIP-Giant (1.1B)
+& Llama2-7B (6.5B)
+& Act-L (1.5B)
+& \cellcolor{lightgray}3.9 Hz
+& \cellcolor{lightgray}8.0 Hz
+& \cellcolor{lightgray}73.6 Hz \\
+\hdashline
+$\pi_0$-XL (16.7B)
+& SigLIP-Giant (1.1B)
+& Llama2-13B (12.7B)
+& Act-XL (2.9B)
+& \cellcolor{lightgray}2.1 Hz
+& N/A
+& \cellcolor{lightgray}39.7 Hz \\
+\hdashline
+$\pi_0$-XXL (81.3B)
+& SigLIP-Giant (1.1B)
+& Llama2-70B (68.5B)
+& Act-XXL (11.7B)
+& N/A
+& N/A
+& \cellcolor{lightgray}9.6 Hz \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

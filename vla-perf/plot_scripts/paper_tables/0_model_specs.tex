@@ -1,0 +1,47 @@
+\begin{table}[h]
+    \centering
+    \setlength\dashlinedash{0.2pt}
+    \setlength\dashlinegap{1.5pt}
+    \begin{footnotesize}
+    \caption{Parameter specifications for $\pi_0$ model components (without vocabulary table).}
+    % \vspace{-1em}
+    \label{tab:pi0_model_specs}
+    \scalebox{1.0}{
+        \begin{tabular}{L{7em} R{3em} R{5em} R{5em} R{4em} R{4.5em} R{3.5em}}
+\toprule
+\textbf{Component}
+& \multicolumn{1}{c}{\textbf{Layers}}
+& \multicolumn{1}{c}{\textbf{Hidden Dim}}
+& \multicolumn{1}{c}{\textbf{Interm. Dim}}
+& \multicolumn{1}{c}{\textbf{Q Heads}}
+& \multicolumn{1}{c}{\textbf{KV Heads}}
+& \multicolumn{1}{c}{\textbf{Params}} \\
+\midrule
+Vision Encoder
+& 27
+& 1,152
+& 4,304
+& 16
+& 16
+& 494.80M \\
+\hdashline
+VLM Backbone
+& 18
+& 2,048
+& 16,384
+& 8
+& 1
+& 1.98B \\
+\hdashline
+Action Expert
+& 18
+& 1,024
+& 4,096
+& 8
+& 1
+& 292.63M \\
+\bottomrule
+        \end{tabular}
+    }
+    \end{footnotesize}
+\end{table}

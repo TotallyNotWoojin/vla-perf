@@ -1,0 +1,57 @@
+\begin{table*}[t]
+    \centering
+    \setlength\dashlinedash{0.2pt}
+    \setlength\dashlinegap{1.5pt}
+    \begin{footnotesize}
+    \caption{Inference performance of $\pi_0$ on various GPUs without considering network latency.}
+    % \vspace{-1em}
+    \label{tab:pi0_base_performance}
+    \scalebox{1.0}{
+        \begin{tabular}{L{5em} R{5em} R{5em} R{5em} R{6em} R{6em}}
+\toprule
+\textbf{Hardware}
+& \multicolumn{1}{c}{\textbf{Vision Lat.}}
+& \multicolumn{1}{c}{\textbf{VLM Lat.}}
+& \multicolumn{1}{c}{\textbf{Action Lat.}}
+& \multicolumn{1}{c}{\textbf{E2E Lat.}}
+& \multicolumn{1}{c}{\textbf{E2E Freq.}} \\
+\midrule
+Jetson Thor
+& 6.06 ms
+& 20.30 ms
+& 26.20 ms
+& 52.57 ms
+& \cellcolor{lightgray} 19.0 Hz \\
+\hdashline
+RTX 4090
+& 4.02 ms
+& 19.79 ms
+& 7.25 ms
+& 31.06 ms
+& \cellcolor{lightgray} 32.2 Hz \\
+\hdashline
+A100
+& 2.13 ms
+& 10.47 ms
+& 3.60 ms
+& 16.20 ms
+& \cellcolor{lightgray} 61.7 Hz \\
+\hdashline
+H100
+& 0.71 ms
+& 3.30 ms
+& 2.14 ms
+& 6.15 ms
+& \cellcolor{lightgray} 162.5 Hz \\
+\hdashline
+B100
+& 0.40 ms
+& 1.87 ms
+& 0.91 ms
+& 3.18 ms
+& \cellcolor{lightgray} 314.4 Hz \\
+\bottomrule
+\end{tabular}
+    }
+    \end{footnotesize}
+\end{table*}

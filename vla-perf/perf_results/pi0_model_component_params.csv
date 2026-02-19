@@ -1,0 +1,5 @@
+model,vision_model,vision_params_M,vlm_model,vlm_params_M,action_model,action_params_M
+pi-0,siglip2-so400m-patch14-384-vision,411.19488,gemma-2b-no-vocab,1981.956096,vla/pi0-size-scaling-action-2b,292.626432
+pi-0-L,siglip2-giant-opt-patch16-384-vision,1132.70784,llama2_7b-no-vocab,6476.529664,vla/pi0-size-scaling-action-7b,1480.851456
+pi-0-XL,siglip2-giant-opt-patch16-384-vision,1132.70784,llama2_13b-no-vocab,12688.5888,vla/pi0-size-scaling-action-13b,2897.1008
+pi-0-XXL,siglip2-giant-opt-patch16-384-vision,1132.70784,llama2_70b-no-vocab,68453.66272,vla/pi0-size-scaling-action-70b,11745.36192

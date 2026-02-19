@@ -1,0 +1,25 @@
+\begin{table}[t]
+    \centering
+    \setlength\dashlinedash{0.2pt}
+    \setlength\dashlinegap{1.5pt}
+    \caption{Inference performance and memory consumption of long-context VLA models.}
+    \label{tab:pi0_long_context}
+    \vspace{0.5em}
+    \scalebox{0.9}{
+\begin{tabular}{@{} L{4em} R{6em} R{6em} M{7em} M{7em} M{7em} @{}}
+\toprule
+\textbf{Timesteps} & \multicolumn{1}{c}{\textbf{Total Memory}} & \multicolumn{1}{c}{\textbf{KV Cache Size}} & \multicolumn{1}{c}{\textbf{Jetson Thor}} & \multicolumn{1}{c}{\textbf{RTX 4090}} & \multicolumn{1}{c}{\textbf{B100}} \\
+\midrule
+1 & 5.1 GB & 0.01 GB & \cellcolor{lightgray}52.6 ms (19.0 Hz) & \cellcolor{lightgray}31.1 ms (32.2 Hz) & \cellcolor{lightgray}3.2 ms (314.4 Hz) \\
+\hdashline
+10 & 5.3 GB & 0.13 GB & \cellcolor{lightgray}58.4 ms (17.1 Hz) & \cellcolor{lightgray}39.0 ms (25.7 Hz) & \cellcolor{lightgray}3.9 ms (254.6 Hz) \\
+\hdashline
+100 & 6.4 GB & 1.3 GB & \cellcolor{lightgray}122.9 ms (8.1 Hz) & \cellcolor{lightgray}117.3 ms (8.5 Hz) & \cellcolor{lightgray}11.3 ms (88.4 Hz) \\
+\hdashline
+1000 & 18.3 GB & 13.2 GB & \cellcolor{lightgray}768.3 ms (1.3 Hz) & \cellcolor{lightgray}900.6 ms (1.1 Hz) & \cellcolor{lightgray}85.2 ms (11.7 Hz) \\
+\hdashline
+10000 & 137.0 GB & 131.8 GB & N/A & N/A & \cellcolor{lightgray}823.7 ms (1.2 Hz) \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

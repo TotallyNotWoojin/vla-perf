@@ -1,154 +1,142 @@
-# __NVIDIA_OSS__ Standard Repo Template
+# VLA-Perf: Performance Modeling for Vision-Language-Action Models in Robotics
 
-This README file is from the NVIDIA_OSS standard repo template of [PLC-OSS-Template](https://github.com/NVIDIA-GitHub-Management/PLC-OSS-Template?tab=readme-ov-file). It provides a list of files in the PLC-OSS-Template and guidelines on how to use (clone and customize) them.
+This repository provides analytical performance modeling tools for **Vision-Language-Action (VLA)** models — the emerging class of foundation models that combine vision encoders, language model backbones, and action prediction heads to control robots directly from images and language instructions. 
 
-**Upon completing the customization for the project repo, the repo admin should replace this README template with the project specific README file.**
+<p align="center">
+  <img src="files/Overview-VLA-Perf.png" width="90%">
+</p>
 
-- Files (org-wide templates in the NVIDIA .github org repo; per-repo overrides allowed) in [PLC-OSS-Template](https://github.com/NVIDIA-GitHub-Management/PLC-OSS-Template?tab=readme-ov-file)
+VLA-Perf models the **inference latency** of VLA architectures across:
+- **Hardware platforms**: Data center GPUs (A100, H100, B100), edge GPUs (RTX 4090), and embedded devices (NVIDIA Jetson family)
+- **Network conditions**: WiFi 5/6/6E/7, 4G/5G cellular, Ethernet (1G–400G), and cloud links
+- **Deployment scenarios**: On-device, edge-server, cloud, and device-server collaboration (split inference)
+- **Architecture design choices**: Model scaling, diffusion vs autoregressive action heads, denoising steps, action chunk sizes, and observation context length
 
-   - Root 
-     - README.md skeleton (CTA + Quickstart + Support/Security/Governance links) 
-     - LICENSE (Apache 2.0 by default)
-        - For other licenses, see the [Confluence page](https://confluence.nvidia.com/pages/viewpage.action?pageId=788418816) for other licenses
-        - CLA.md file (delete if not using MIT or BSD licenses)
-     - CODE_OF_CONDUCT.md 
-     - SECURITY.md (vuln reporting path) 
-     - CONTRIBUTING.md (base; repo can add specifics)
-     - SUPPORT.md (Support levels/channels)
-     - GOVERNANCE.md (baseline; repo may extend)
-     - CITATION.md (for projects that need citation)
+## Repository Structure
 
-   - .github/ 
-     - ISSUE_TEMPLATE/ (<https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository>)
-       - bug.yml, feature.yml, task.yml, config.yml 
-     - PULL_REQUEST_TEMPLATE.md (<https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository>)
-     - workflows/
-     - Note: workflow-templates/ for starter workflows should live in the org-level .github repo, not per-repo
-
-   - Repo-specific (not org-template, maintained by the team)
-     - CODEOWNERS (place at .github/CODEOWNERS or repo root)
-     - CHANGELOG.md (or RELEASE.md) 
-     - ROADMAP.md 
-     - MAINTAINERS.md 
-     - NOTICE or THIRD_PARTY_NOTICES / THIRD_PARTY_LICENSES (dependency specific)
-     - Build/package files (CMake, pyproject, Dockerfile, etc.)
-
-   - Recommended structure and hygiene
-     - docs/
-     - examples/
-     - tests/
-     - scripts/
-     - Container/dev env: Dockerfile, docker/, .devcontainer/ (optional)
-     - Build/package (language-specific):
-       - Python: pyproject.toml, setup.cfg/setup.py, requirements.txt, environment.yml
-       - C++: CMakeLists.txt, cmake/, vcpkg.json
-     - Repo hygiene: .gitignore, .gitattributes, .editorconfig, .pre-commit-config.yaml, .clang-format
-
-
-## Usage of [PLC-OSS-Template](https://github.com/NVIDIA-GitHub-Management/PLC-OSS-Template?tab=readme-ov-file) for NEW NVIDIA OSS repos
-
-1. Clone the [PLC-OSS-Template](https://github.com/NVIDIA-GitHub-Management/PLC-OSS-Template?tab=readme-ov-file)
-2. Find/replace all in the clone of `___PROJECT___` and `__PROJECT_NAME__` with the name of the specific project.
-3. Inspect all files to make sure all replacements work and update text as needed
-
-
-**What you can reuse immediately**
-- CODE_OF_CONDUCT.md
-- SECURITY.md
-- CONTRIBUTING.md (base)
-- .github/ISSUE_TEMPLATE/.yml (bug/feature/task + config.yml)
-- .github/PULL_REQUEST_TEMPLATE.md
-- Reusable workflows 
-
-**What you must customize per repo**
-- README.md: copy the skeleton and fill in product-specific details (Quickstart, Requirements, Usage, Support level, links)
-- LICENSE: check file is correct, update year, consult Confluence for alternatives https://confluence.nvidia.com/pages/viewpage.action?pageId=788418816, add CLA.md only if your license/process requires it
-- CODEOWNERS: replace <TEAM> with your GitHub team handle(s). Place at .github/CODEOWNERS (or repo root)
-- MAINTAINERS.md: list maintainers names/roles, escalation path
-- CHANGELOG.md (or RELEASE.md): track releases/changes
-- SUPPORT.md: Update for your project
-- ROADMAP.md (optional): upcoming milestones
-- NOTICE / THIRD_PARTY_NOTICES (if you ship third‑party content)
-- Build/package files (CMake/pyproject/Dockerfile/etc.), tests/, docs/, examples/, scripts/ as appropriate
-- Workflows: Edit if you need custom behavior 
-
-
-4. Change git origin to point to new repo and push
-5. Remove the line break below and everything above it
-
-## Usage for existing NVIDIA OSS repos
-
-1. Follow the steps above, but add the files to your existing repo and merge
-
-<!-- REMOVE THE LINE BELOW AND EVERYTHING ABOVE -->
------------------------------------------
-# [Project Title]
-One-sentence value proposition for users. Who is it for, and why it matters. 
-
-# Overview
-What the project does? Why the project is useful?
-Provide a brief overview, highlighting key features or problem-solving capabilities.
-
-# Getting Started
-Guide users on how they can get started with the project. This should include basic installation step, quick-start examples 
-```bash
-# Option A: Package manager (pip/conda/npm/etc.)
-<copy-paste install>
-
-# Option B: Container
-docker run <image> <args>
-
-# Verify (hello world)
-<one-liner or ~10-line example>
 ```
-# Requirements
-Include a list of pre-requisites. 
-- OS/Arch: <summary or link to full matrix>
-- Runtime/Compiler: <versions>
-- GPU/Drivers (if applicable): CUDA <ver>, driver <ver>, etc.
-
-# Usage
-```bash
-# Minimal runnable snippet (≤20 lines)
-<code>
+.
+├── README.md               # This file
+├── LICENSE                 # Apache 2.0 License
+├── vla-perf/               # VLA performance modeling (main contribution)
+│   ├── pi0_perf.py         # Core script: Pi0 experiments used in the paper
+│   ├── perf_utils.py       # Shared utilities for performance evaluation
+│   ├── openvla_perf.py     # OpenVLA performance evaluation
+│   ├── network_latency.py  # Network latency estimation
+│   ├── perf_results/       # Output CSV results
+│   ├── paper_figures/      # Generated plots (PDF + PNG)
+│   ├── paper_tables/       # Generated LaTeX tables
+│   ├── plot_scripts/       # Scripts for figure and table generation
+│   └── test_scripts/       # Test and debugging utilities
+└── genz/                   # GenZ LLM Analyzer (hardware performance backend)
 ```
-- More examples/tutorials: <link>
-- API reference: <link>
 
-# Performance (Optional)
-Summary of benchmarks; link to detailed results and hardware used.
+## Quick Start
 
-## Releases & Roadmap 
-- Releases/Changelog: <link>
-- (Optional) Next milestones or link to `ROADMAP.md`.
-  
-# Contribution Guidelines
-- Start here: `CONTRIBUTING.md`
-- Code of Conduct: `CODE_OF_CONDUCT.md`
-- Development quickstart (build/test):
+### 1. Set up the environment
+
 ```bash
-<clone> && <deps> && <build/test>
+conda create -n vla-perf python=3.10
+conda activate vla-perf
 ```
-## Governance & Maintainers
-- Governance: `GOVERNANCE.md`
-- Maintainers: <team/handles>
-- Labeling/triage policy: <link>
 
-## Security
-- Vulnerability disclosure: `SECURITY.md`
-- Do not file public issues for security reports.
+### 2. Install GenZ (hardware modeling backend)
 
-## Support
-- Level: <Experimental | Maintained | Stable>
-- How to get help: Issues/Discussions/<channel link>
-- Response expectations (if any).
+```bash
+cd genz
+pip install -e .
+```
 
-# Community
-Provide the channel for community communications.
+### 3. Run the Pi0 performance evaluation
 
-# References
-Provide a list of related references
+```bash
+cd ../vla-perf
+python pi0_perf.py
+```
 
-# License
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-- License: <link>
+This runs all 7 experiments from the paper and saves results to `vla-perf/perf_results/`. See the [vla-perf README](vla-perf/README.md) for details on each experiment and how to selectively enable/disable them.
+
+### 4. Generate paper figures and tables
+
+```bash
+cd vla-perf/plot_scripts
+python print_1_base_pi0.py          # Base performance tables
+python print_2_scale_model.py       # Model scaling plots
+python print_3_long_context.py      # Long context plot
+# ... etc. (see plot_scripts/ for the full list)
+```
+
+Output figures are saved to `vla-perf/paper_figures/` and tables to `vla-perf/paper_tables/`.
+
+## VLA Models Studied
+
+### Pi0 (Physical Intelligence)
+
+The primary model studied in this work. Pi0 uses a three-stage pipeline:
+
+1. **Vision encoder** (SigLIP SoViT-400m) — encodes multi-view camera images into visual tokens
+2. **VLM backbone** (Gemma 2B) — processes visual tokens and language instructions
+3. **Action Expert** (Diffusion Transformer, ~300M) — generates actions via Flow Matching with N denoising iterations
+
+### OpenVLA
+
+An open-source VLA baseline using a dual vision encoder (DINOv2 + SigLIP) with a Llama 2 7B backbone that generates discretized actions autoregressively.
+
+## Experiments
+
+The main script `vla-perf/pi0_perf.py` contains 7 experiments:
+
+| # | Experiment | Key Question |
+|---|---|---|
+| 1 | Base E2E Performance | How fast is Pi0 on different hardware? |
+| 2 | Model Size Scaling | How does latency grow with larger vision/VLM/action models? |
+| 3 | Long Context | What is the cost of longer observation history? |
+| 4 | Denoising Steps x Action Lengths | How do diffusion steps and action chunk size trade off? |
+| 5 | Autoregressive vs Diffusion | Which action generation strategy is faster? |
+| 6 | Device vs Server | When is on-device inference competitive with server inference? |
+| 7 | Device-Server Collaboration | Can split inference (vision on-device, VLM on server) help? |
+
+### Sample Results
+
+**Model Size Scaling** — Latency vs model size for each Pi0 component across B100, RTX 4090, and Jetson Thor:
+
+<p align="center">
+  <img src="vla-perf/paper_figures/pi0_model_scaling_components.png" width="90%">
+</p>
+
+**Autoregressive vs Diffusion** — Diffusion-based action generation scales much better than autoregressive with increasing action chunk size:
+
+<p align="center">
+  <img src="vla-perf/paper_figures/pi0_autoregressive_vs_diffusion_chunk_size_B100.png" width="55%">
+</p>
+
+**Device vs Server** — E2E latency comparison across on-device, edge-server, and cloud deployment under different network conditions:
+
+<p align="center">
+  <img src="vla-perf/paper_figures/pi0_device_vs_server_e2e_total_ms.png" width="90%">
+</p>
+
+**Device-Server Collaboration** — Split inference (Helix-style) vs server-only and on-device baselines:
+
+<p align="center">
+  <img src="vla-perf/paper_figures/pi0_device_server_collab.png" width="90%">
+</p>
+
+## GenZ: Hardware Performance Modeling Backend
+
+This project builds on top of [GenZ LLM Analyzer](https://github.com/abhibambhaniya/GenZ-LLM-Analyzer), an analytical performance modeling tool for transformer inference. GenZ estimates latency and memory usage given a model architecture, hardware platform, precision, and parallelism configuration.
+
+We extend GenZ with several additions for VLA workloads:
+
+- **Parallel decode modeling** (new) — models diffusion-based action generation where multiple tokens are decoded in parallel per denoising step, with cross-attention to the VLM's KV cache. This is critical for modeling Flow Matching in Pi0's Action Expert.
+- **VLA model configs** (new) — added model definitions for Pi0 (vision, VLM, action expert), Pi0.6, OpenVLA, and SigLIP/DINOv2 vision encoders (`genz/GenZ/Models/Model_sets/vla_models.py`).
+- **Hardware configs** (extended) — added specs for NVIDIA B100, RTX 4090, and the full Jetson family (AGX Thor, AGX Orin, Orin NX, Orin Nano, AGX Xavier, Xavier NX) alongside existing A100 and H100 configs (`genz/Systems/system_configs.py`).
+- **Prefill modeling** — used for vision encoders and VLM backbone (processes all input tokens at once).
+- **Decode modeling** — used for autoregressive action token generation (one token at a time, as in OpenVLA).
+- **Parallelism** — tensor parallel and pipeline parallel strategies across multi-GPU setups.
+
+For more details on the base GenZ framework, see the [GenZ README](genz/README.md).
+
+## License
+
+This project is released under the [Apache 2.0 License](LICENSE).

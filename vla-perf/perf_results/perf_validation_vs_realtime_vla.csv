@@ -1,0 +1,7 @@
+system,num_views,precision,vlm_seq_len,vision_ms,vlm_ms,action_ms,roofline_ms,vision_bound,vlm_bound,action_bound,real_ms,roofline_pct
+RTX_4090,1,bf16,256,1.34,6.21,7.12,14.67,Comp,Comp,Mem,20.0,73.3
+RTX_4090,2,bf16,512,2.68,12.53,7.26,22.48,Comp,Comp,Mem,27.3,82.3
+RTX_4090,3,bf16,768,4.02,18.98,7.41,30.4,Comp,Comp,Mem,36.8,82.6
+RTX_5090,1,bf16,256,1.05,4.9,4.05,10.0,Comp,Comp,Mem,17.6,56.8
+RTX_5090,2,bf16,512,2.09,9.89,4.16,16.15,Comp,Comp,Mem,24.0,67.3
+RTX_5090,3,bf16,768,3.14,14.98,4.28,22.4,Comp,Comp,Mem,31.9,70.2

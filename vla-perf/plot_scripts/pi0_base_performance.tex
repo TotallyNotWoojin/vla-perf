@@ -1,0 +1,57 @@
+\begin{table*}[t]
+    \centering
+    \setlength\dashlinedash{0.2pt}
+    \setlength\dashlinegap{1.5pt}
+    \begin{footnotesize}
+    \caption{Inference performance of $\pi_0$ on various GPUs without considering network latency.}
+    % \vspace{-1em}
+    \label{tab:pi0_base_performance}
+    \scalebox{1.0}{
+        \begin{tabular}{L{5em} R{5em} R{5em} R{5em} R{6em} R{6em}}
+\toprule
+\textbf{Hardware}
+& \multicolumn{1}{c}{\textbf{Vision (ms)}}
+& \multicolumn{1}{c}{\textbf{VLM (ms)}}
+& \multicolumn{1}{c}{\textbf{Action (ms)}}
+& \multicolumn{1}{c}{\textbf{E2E Lat. (ms)}}
+& \multicolumn{1}{c}{\textbf{E2E Freq. (Hz)}} \\
+\midrule
+Jetson Thor
+& 6.06
+& 20.30
+& 26.20
+& 52.57
+& 19.0 \\
+\hdashline
+RTX 4090
+& 4.02
+& 19.79
+& 7.25
+& 31.06
+& 32.2 \\
+\hdashline
+A100
+& 2.13
+& 10.47
+& 3.60
+& 16.20
+& 61.7 \\
+\hdashline
+H100
+& 0.71
+& 3.30
+& 2.14
+& 6.15
+& 162.5 \\
+\hdashline
+B100
+& 0.40
+& 1.87
+& 0.91
+& 3.18
+& 314.4 \\
+\bottomrule
+\end{tabular}
+    }
+    \end{footnotesize}
+\end{table*}

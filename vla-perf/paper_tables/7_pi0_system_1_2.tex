@@ -1,0 +1,70 @@
+\begin{table}[t]
+\centering
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\caption{Performance gains from System~1+2 asynchronous inference (Async-system-1-2).}
+\label{tab:pi0_system_1_2}
+\vspace{0.3em}
+\scalebox{0.76}{
+\begin{tabular}{@{}
+L{5em} L{5em}
+R{3em} R{3em} R{5em}
+M{0em}
+R{5.5em} R{3.5em}
+M{0em}
+R{5.5em} R{3.5em}
+@{}}
+\toprule
+\multirow{2}{*}{\textbf{Hardware}}
+& \multirow{2}{*}{\textbf{Network}}
+& \multirow{2}{*}{\textbf{S1 Lat.}}
+& \multirow{2}{*}{\textbf{S2 Lat.}}
+& \multirow{2}{*}{\textbf{Freq. (Sync)}}
+& 
+& \multicolumn{2}{c}{\textbf{S2 Cap = 5 Hz}}
+& 
+& \multicolumn{2}{c}{\textbf{S2 Cap = 10 Hz}} \\
+%
+\cmidrule(lr){7-8}
+\cmidrule(lr){10-11}
+%
+& & & & &
+& \textbf{Freq. (Async)} & \textbf{Speedup}
+&
+& \textbf{Freq. (Async)} & \textbf{Speedup} \\
+\midrule
+Jetson Thor
+& On-device
+& 32.3 ms
+& 20.3 ms
+& 19.0 Hz
+&& 27.8 Hz & \cellcolor{lightgray} 1.46$\times$
+&& 24.7 Hz & \cellcolor{lightgray} 1.30$\times$ \\
+\hdashline
+B100
+& Ethernet 10G
+& 1.5 ms
+& 1.9 ms
+& 301.4 Hz
+&& 682.4 Hz & \cellcolor{lightgray} 2.26$\times$
+&& 676.0 Hz & \cellcolor{lightgray} 2.24$\times$ \\
+\hdashline
+B100
+& WiFi~7
+& 6.5 ms
+& 1.9 ms
+& 119.7 Hz
+&& 152.6 Hz & \cellcolor{lightgray} 1.28$\times$
+&& 151.2 Hz & \cellcolor{lightgray} 1.26$\times$ \\
+\hdashline
+B100
+& 5G
+& 26.0 ms
+& 1.9 ms
+& 35.9 Hz
+&& 38.2 Hz & \cellcolor{lightgray} 1.06$\times$
+&& 37.8 Hz & \cellcolor{lightgray} 1.05$\times$ \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

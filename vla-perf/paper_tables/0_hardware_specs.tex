@@ -1,0 +1,57 @@
+\begin{table*}[h]
+    \centering
+    \setlength\dashlinedash{0.2pt}
+    \setlength\dashlinegap{1.5pt}
+    \begin{footnotesize}
+    \caption{Hardware specifications for the GPUs used in our evaluation.}
+    % \vspace{-1em}
+    \label{tab:hardware_specs}
+    \scalebox{1.0}{
+        \begin{tabular}{L{6em} R{6em} R{6em} R{6em} R{4em} R{5em}}
+\toprule
+\textbf{Hardware}
+& \multicolumn{1}{c}{\textbf{FP32}}
+& \multicolumn{1}{c}{\textbf{FP16}}
+& \multicolumn{1}{c}{\textbf{INT8}}
+& \multicolumn{1}{c}{\textbf{Memory}}
+& \multicolumn{1}{c}{\textbf{Memory BW}} \\
+\midrule
+Jetson Thor
+& 100 TFLOP/s
+& 400 TFLOP/s
+& 800 TOP/s
+& 128 GB
+& 270 GB/s \\
+\hdashline
+RTX 4090
+& 83 TFLOP/s
+& 165 TFLOP/s
+& 330 TOP/s
+& 24 GB
+& 1008 GB/s \\
+\hdashline
+A100
+& 20 TFLOP/s
+& 312 TFLOP/s
+& 624 TOP/s
+& 80 GB
+& 2039 GB/s \\
+\hdashline
+H100
+& 67 TFLOP/s
+& 989 TFLOP/s
+& 1979 TOP/s
+& 80 GB
+& 3350 GB/s \\
+\hdashline
+B100
+& 60 TFLOP/s
+& 1750 TFLOP/s
+& 3500 TOP/s
+& 192 GB
+& 8000 GB/s \\
+\bottomrule
+        \end{tabular}
+    }
+    \end{footnotesize}
+\end{table*}

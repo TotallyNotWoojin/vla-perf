@@ -1,0 +1,7 @@
+model.name,model.stage,model.dec_steps,model.seq_len_inference_prefill,hardware.name,hardware.num_chips,batch_size,boundness,op_intensity,time_ms,weights_mb,kv_cache_mb,total_memory_mb
+meta-llama/Llama-2-70B,parallel_decode,256,102400,B100,1,1,Comp,160.11875637497457,61.44913311232953,143860.0,32080.0,175940.0
+meta-llama/Llama-2-70B,parallel_decode,256,102400,B100,2,1,Comp,159.70307156861418,32.31273810564394,71930.0,16040.0,87970.0
+meta-llama/Llama-2-70B,parallel_decode,256,102400,B100,2,2,Comp,157.27213843610724,61.45372339010729,143860.0,32080.0,175940.0
+meta-llama/Llama-2-70B,parallel_decode,256,102400,B100,4,1,Comp,158.87814347399146,17.46241560230113,35965.0,8020.0,43985.0
+meta-llama/Llama-2-70B,parallel_decode,256,102400,B100,4,2,Comp,156.88695984692993,32.3173283834217,71930.0,16040.0,87970.0
+meta-llama/Llama-2-70B,parallel_decode,256,102400,B100,4,4,Comp,157.27213843610724,61.462903945662845,143860.0,32080.0,175940.0

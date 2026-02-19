@@ -1,0 +1,53 @@
+\begin{table}[t]
+    \centering
+    \setlength\dashlinedash{0.2pt}
+    \setlength\dashlinegap{1.5pt}
+    \begin{footnotesize}
+    
+    \caption{Compute- vs. memory-bound analysis of $\pi_0$ across different hardware. Operator intensity (OI) denotes the ratio between compute operations and memory accesses (FLOPs/Bytes). The balance OI denotes the hardware balance point at which compute throughput and memory bandwidth are equally limiting.}
+
+    \vspace{.5em}
+    \label{tab:pi0_base_workload}
+    \scalebox{1.0}{
+        \begin{tabular}{L{5em} M{5em} M{6em} M{6em} M{6em}}
+\toprule
+\textbf{Hardware}
+& \multicolumn{1}{c}{\textbf{Balance OI}} 
+& \multicolumn{1}{c}{\textbf{Vision} (OI=321.4)}
+& \multicolumn{1}{c}{\textbf{VLM} (OI=542.8)}
+& \multicolumn{1}{c}{\textbf{Action} (OI=54.0)} \\
+\midrule
+Jetson Thor 
+& 1481.5 
+& Memory
+& Memory
+& Memory \\
+\hdashline
+RTX 4090 
+& 163.7 
+& Compute
+& Compute
+& Memory \\
+\hdashline
+A100 
+& 153.0 
+& Compute
+& Compute
+& Memory \\
+\hdashline
+H100 
+& 295.2 
+& Compute
+& Compute
+& Memory \\
+\hdashline
+B100 
+& 218.8 
+& Compute
+& Compute
+& Memory \\
+\bottomrule
+\end{tabular}
+    }
+    \end{footnotesize}
+\end{table}

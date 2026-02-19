@@ -1,0 +1,7 @@
+model.name,model.stage,model.dec_steps,model.seq_len_inference_prefill,hardware.name,hardware.num_chips,batch_size,time_ms
+meta-llama/Llama-3.1-8B,prefill,1,102400,A100_80GB,1,1,22891.349732430772
+meta-llama/Llama-3.1-8B,prefill,1,102400,A100_80GB,2,1,11866.220501632051
+meta-llama/Llama-3.1-8B,prefill,1,102400,A100_80GB,2,2,22896.559065764104
+meta-llama/Llama-3.1-8B,prefill,1,102400,A100_80GB,4,1,6353.687386232692
+meta-llama/Llama-3.1-8B,prefill,1,102400,A100_80GB,4,2,11871.429834965384
+meta-llama/Llama-3.1-8B,prefill,1,102400,A100_80GB,4,4,22906.977732430765

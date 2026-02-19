@@ -1,0 +1,196 @@
+================================================================================
+Starting VLA Vision Encoder Performance Evaluation
+================================================================================
+Models: ['siglip2-base-patch16-224-vision', 'siglip2-large-patch16-384-vision', 'siglip2-so400m-patch14-384-vision', 'siglip2-giant-opt-patch16-384-vision']
+Systems: ['A100_80GB', 'H100', 'B100']
+Number of devices: [1, 2, 4]
+Bits: bf16
+Note: input_tokens will be set to each model's max_model_len from config
+Processing model: siglip2-base-patch16-224-vision (max_model_len=256)
+  System: A100_80GB
+    Devices: 1
+      Collected 11 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+  System: H100
+    Devices: 1
+      Collected 11 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+  System: B100
+    Devices: 1
+      Collected 11 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+Processing model: siglip2-large-patch16-384-vision (max_model_len=576)
+  System: A100_80GB
+    Devices: 1
+      Collected 11 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+  System: H100
+    Devices: 1
+      Collected 11 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+  System: B100
+    Devices: 1
+      Collected 11 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+Processing model: siglip2-so400m-patch14-384-vision (max_model_len=256)
+  System: A100_80GB
+    Devices: 1
+      Collected 11 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+  System: H100
+    Devices: 1
+      Collected 11 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+  System: B100
+    Devices: 1
+      Collected 11 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+Processing model: siglip2-giant-opt-patch16-384-vision (max_model_len=576)
+  System: A100_80GB
+    Devices: 1
+      Collected 10 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+  System: H100
+    Devices: 1
+      Collected 10 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+  System: B100
+    Devices: 1
+      Collected 11 results
+    Devices: 2
+      Collected 21 results
+    Devices: 4
+      Collected 30 results
+Total results collected: 742
+Optimal results after filtering: 87
+DataFrame successfully written to perf_results/vla_vision_perf.csv
+Total rows: 87
+
+================================================================================
+Performance Summary:
+================================================================================
+
+                               model.name model.stage  model.dec_steps  model.seq_len_inference_prefill hardware.name  hardware.num_chips  batch_size boundness  op_intensity   time_ms   weights_mb  kv_cache_mb  total_memory_mb
+0         siglip2-base-patch16-224-vision     prefill                1                              256     A100_80GB                   1           1      Comp    156.931497  0.149954   162.000000      9.00000       171.000000
+21        siglip2-base-patch16-224-vision     prefill                1                              256     A100_80GB                   2           1      Comm    145.722105  0.311670    81.000000      4.50000        85.500000
+11        siglip2-base-patch16-224-vision     prefill                1                              256     A100_80GB                   2           2      Comp    158.148021  0.153395   162.000000      9.00000       171.000000
+51        siglip2-base-patch16-224-vision     prefill                1                              256     A100_80GB                   4           1      Comm    127.506842  0.405448    40.500000      2.25000        42.750000
+41        siglip2-base-patch16-224-vision     prefill                1                              256     A100_80GB                   4           2      Comm    147.834019  0.315112    81.000000      4.50000        85.500000
+32        siglip2-base-patch16-224-vision     prefill                1                              256     A100_80GB                   4           4      Comp    158.148021  0.160278   162.000000      9.00000       171.000000
+124       siglip2-base-patch16-224-vision     prefill                1                              256          B100                   1           1       Mem    156.931497  0.032715   162.000000      9.00000       171.000000
+125       siglip2-base-patch16-224-vision     prefill                1                              256          B100                   1           2      Comp    217.032922  0.058000   162.000000     18.00000       180.000000
+145       siglip2-base-patch16-224-vision     prefill                1                              256          B100                   2           1      Comm    145.722105  0.165129    81.000000      4.50000        85.500000
+135       siglip2-base-patch16-224-vision     prefill                1                              256          B100                   2           2       Mem    158.148021  0.033372   162.000000      9.00000       171.000000
+136       siglip2-base-patch16-224-vision     prefill                1                              256          B100                   2           4      Comp    219.366609  0.059063   162.000000     18.00000       180.000000
+175       siglip2-base-patch16-224-vision     prefill                1                              256          B100                   4           1      Comm    127.506842  0.187585    40.500000      2.25000        42.750000
+165       siglip2-base-patch16-224-vision     prefill                1                              256          B100                   4           2      Comm    147.834019  0.165785    81.000000      4.50000        85.500000
+156       siglip2-base-patch16-224-vision     prefill                1                              256          B100                   4           4       Mem    158.148021  0.034686   162.000000      9.00000       171.000000
+157       siglip2-base-patch16-224-vision     prefill                1                              256          B100                   4           8      Comp    219.366609  0.061191   162.000000     18.00000       180.000000
+62        siglip2-base-patch16-224-vision     prefill                1                              256          H100                   1           1       Mem    156.931497  0.075414   162.000000      9.00000       171.000000
+63        siglip2-base-patch16-224-vision     prefill                1                              256          H100                   1           2       Mem    217.032922  0.104511   162.000000     18.00000       180.000000
+64        siglip2-base-patch16-224-vision     prefill                1                              256          H100                   1           4      Comp    268.435456  0.204682   162.000000     36.00000       198.000000
+83        siglip2-base-patch16-224-vision     prefill                1                              256          H100                   2           1      Comm    145.722105  0.235676    81.000000      4.50000        85.500000
+73        siglip2-base-patch16-224-vision     prefill                1                              256          H100                   2           2       Mem    158.148021  0.077228   162.000000      9.00000       171.000000
+74        siglip2-base-patch16-224-vision     prefill                1                              256          H100                   2           4       Mem    219.366609  0.107138   162.000000     18.00000       180.000000
+75        siglip2-base-patch16-224-vision     prefill                1                              256          H100                   2           8      Comp    272.014595  0.208937   162.000000     36.00000       198.000000
+113       siglip2-base-patch16-224-vision     prefill                1                              256          H100                   4           1      Comm    127.506842  0.328306    40.500000      2.25000        42.750000
+103       siglip2-base-patch16-224-vision     prefill                1                              256          H100                   4           2      Comm    147.834019  0.237489    81.000000      4.50000        85.500000
+94        siglip2-base-patch16-224-vision     prefill                1                              256          H100                   4           4       Mem    158.148021  0.080855   162.000000      9.00000       171.000000
+95        siglip2-base-patch16-224-vision     prefill                1                              256          H100                   4           8       Mem    219.366609  0.112394   162.000000     18.00000       180.000000
+96        siglip2-base-patch16-224-vision     prefill                1                              256          H100                   4          16      Comp    272.014595  0.217448   162.000000     36.00000       198.000000
+558  siglip2-giant-opt-patch16-384-vision     prefill                1                              576     A100_80GB                   1           1      Comp    315.927883  4.442736  2160.000000    135.00000      2295.000000
+578  siglip2-giant-opt-patch16-384-vision     prefill                1                              576     A100_80GB                   2           1      Comp    293.361605  3.678261  1080.000000     67.50000      1147.500000
+568  siglip2-giant-opt-patch16-384-vision     prefill                1                              576     A100_80GB                   2           2      Comp    318.376936  4.454722  2160.000000    135.00000      2295.000000
+608  siglip2-giant-opt-patch16-384-vision     prefill                1                              576     A100_80GB                   4           1      Comm    256.691405  3.336523   540.000000     33.75000       573.750000
+598  siglip2-giant-opt-patch16-384-vision     prefill                1                              576     A100_80GB                   4           2      Comp    297.613223  3.690247  1080.000000     67.50000      1147.500000
+589  siglip2-giant-opt-patch16-384-vision     prefill                1                              576     A100_80GB                   4           4      Comp    318.376936  4.478695  2160.000000    135.00000      2295.000000
+680  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          B100                   1           1      Comp    315.927883  0.822388  2160.000000    135.00000      2295.000000
+701  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          B100                   2           1      Comm    293.361605  1.005009  1080.000000     67.50000      1147.500000
+691  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          B100                   2           2      Comp    318.376936  0.824469  2160.000000    135.00000      2295.000000
+731  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          B100                   4           1      Comm    256.691405  0.954832   540.000000     33.75000       573.750000
+721  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          B100                   4           2      Comm    297.613223  1.007090  1080.000000     67.50000      1147.500000
+712  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          B100                   4           4      Comp    318.376936  0.828631  2160.000000    135.00000      2295.000000
+619  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          H100                   1           1      Comp    315.927883  1.441760  2160.000000    135.00000      2295.000000
+639  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          H100                   2           1      Comm    293.361605  1.585300  1080.000000     67.50000      1147.500000
+629  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          H100                   2           2      Comp    318.376936  1.446422  2160.000000    135.00000      2295.000000
+669  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          H100                   4           1      Comm    256.691405  1.706619   540.000000     33.75000       573.750000
+659  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          H100                   4           2      Comm    297.613223  1.589962  1080.000000     67.50000      1147.500000
+650  siglip2-giant-opt-patch16-384-vision     prefill                1                              576          H100                   4           4      Comp    318.376936  1.455746  2160.000000    135.00000      2295.000000
+186      siglip2-large-patch16-384-vision     prefill                1                              576     A100_80GB                   1           1      Comp    233.583339  1.219575   576.000000     54.00000       630.000000
+207      siglip2-large-patch16-384-vision     prefill                1                              576     A100_80GB                   2           1      Comm    215.707063  1.311674   288.000000     27.00000       315.000000
+197      siglip2-large-patch16-384-vision     prefill                1                              576     A100_80GB                   2           2      Comp    235.535289  1.227899   576.000000     54.00000       630.000000
+237      siglip2-large-patch16-384-vision     prefill                1                              576     A100_80GB                   4           1      Comm    187.073382  1.382224   144.000000     13.50000       157.500000
+227      siglip2-large-patch16-384-vision     prefill                1                              576     A100_80GB                   4           2      Comm    219.060022  1.319998   288.000000     27.00000       315.000000
+218      siglip2-large-patch16-384-vision     prefill                1                              576     A100_80GB                   4           4      Comp    235.535289  1.244547   576.000000     54.00000       630.000000
+310      siglip2-large-patch16-384-vision     prefill                1                              576          B100                   1           1      Comp    233.583339  0.238346   576.000000     54.00000       630.000000
+331      siglip2-large-patch16-384-vision     prefill                1                              576          B100                   2           1      Comm    215.707063  0.448488   288.000000     27.00000       315.000000
+321      siglip2-large-patch16-384-vision     prefill                1                              576          B100                   2           2      Comp    235.535289  0.239817   576.000000     54.00000       630.000000
+361      siglip2-large-patch16-384-vision     prefill                1                              576          B100                   4           1      Comm    187.073382  0.469251   144.000000     13.50000       157.500000
+351      siglip2-large-patch16-384-vision     prefill                1                              576          B100                   4           2      Comm    219.060022  0.449958   288.000000     27.00000       315.000000
+342      siglip2-large-patch16-384-vision     prefill                1                              576          B100                   4           4      Comp    235.535289  0.242759   576.000000     54.00000       630.000000
+248      siglip2-large-patch16-384-vision     prefill                1                              576          H100                   1           1      Comp    233.583339  0.410033   576.000000     54.00000       630.000000
+269      siglip2-large-patch16-384-vision     prefill                1                              576          H100                   2           1      Comm    215.707063  0.671581   288.000000     27.00000       315.000000
+259      siglip2-large-patch16-384-vision     prefill                1                              576          H100                   2           2      Comp    235.535289  0.413474   576.000000     54.00000       630.000000
+299      siglip2-large-patch16-384-vision     prefill                1                              576          H100                   4           1      Comm    187.073382  0.829979   144.000000     13.50000       157.500000
+289      siglip2-large-patch16-384-vision     prefill                1                              576          H100                   4           2      Comm    219.060022  0.675022   288.000000     27.00000       315.000000
+280      siglip2-large-patch16-384-vision     prefill                1                              576          H100                   4           4      Comp    235.535289  0.420357   576.000000     54.00000       630.000000
+372     siglip2-so400m-patch14-384-vision     prefill                1                              256     A100_80GB                   1           1      Comp    181.734051  0.709532   784.054688     30.37500       814.429688
+393     siglip2-so400m-patch14-384-vision     prefill                1                              256     A100_80GB                   2           1      Comm    170.943311  0.941182   392.027344     15.18750       407.214844
+383     siglip2-so400m-patch14-384-vision     prefill                1                              256     A100_80GB                   2           2      Comp    182.888529  0.714194   784.054688     30.37500       814.429688
+423     siglip2-so400m-patch14-384-vision     prefill                1                              256     A100_80GB                   4           1      Comm    152.798068  1.087082   196.013672      7.59375       203.607422
+413     siglip2-so400m-patch14-384-vision     prefill                1                              256     A100_80GB                   4           2      Comm    172.997713  0.945844   392.027344     15.18750       407.214844
+404     siglip2-so400m-patch14-384-vision     prefill                1                              256     A100_80GB                   4           4      Comp    182.888529  0.723519   784.054688     30.37500       814.429688
+496     siglip2-so400m-patch14-384-vision     prefill                1                              256          B100                   1           1       Mem    181.734051  0.137670   784.054688     30.37500       814.429688
+497     siglip2-so400m-patch14-384-vision     prefill                1                              256          B100                   1           2      Comp    269.587540  0.267085   784.054688     60.75000       844.804688
+517     siglip2-so400m-patch14-384-vision     prefill                1                              256          B100                   2           1      Comm    170.943311  0.408612   392.027344     15.18750       407.214844
+507     siglip2-so400m-patch14-384-vision     prefill                1                              256          B100                   2           2       Mem    182.888529  0.138530   784.054688     30.37500       814.429688
+508     siglip2-so400m-patch14-384-vision     prefill                1                              256          B100                   2           4      Comp    272.135827  0.268556   784.054688     60.75000       844.804688
+547     siglip2-so400m-patch14-384-vision     prefill                1                              256          B100                   4           1      Comm    152.798068  0.447833   196.013672      7.59375       203.607422
+537     siglip2-so400m-patch14-384-vision     prefill                1                              256          B100                   4           2      Comm    172.997713  0.409472   392.027344     15.18750       407.214844
+528     siglip2-so400m-patch14-384-vision     prefill                1                              256          B100                   4           4       Mem    182.888529  0.140251   784.054688     30.37500       814.429688
+529     siglip2-so400m-patch14-384-vision     prefill                1                              256          B100                   4           8      Comp    272.135827  0.271497   784.054688     60.75000       844.804688
+434     siglip2-so400m-patch14-384-vision     prefill                1                              256          H100                   1           1       Mem    181.734051  0.320630   784.054688     30.37500       814.429688
+435     siglip2-so400m-patch14-384-vision     prefill                1                              256          H100                   1           2      Comp    269.587540  0.473288   784.054688     60.75000       844.804688
+455     siglip2-so400m-patch14-384-vision     prefill                1                              256          H100                   2           1      Comm    170.943311  0.621308   392.027344     15.18750       407.214844
+445     siglip2-so400m-patch14-384-vision     prefill                1                              256          H100                   2           2       Mem    182.888529  0.322851   784.054688     30.37500       814.429688
+446     siglip2-so400m-patch14-384-vision     prefill                1                              256          H100                   2           4      Comp    272.135827  0.476729   784.054688     60.75000       844.804688
+485     siglip2-so400m-patch14-384-vision     prefill                1                              256          H100                   4           1      Comm    152.798068  0.799147   196.013672      7.59375       203.607422
+475     siglip2-so400m-patch14-384-vision     prefill                1                              256          H100                   4           2      Comm    172.997713  0.623529   392.027344     15.18750       407.214844
+466     siglip2-so400m-patch14-384-vision     prefill                1                              256          H100                   4           4       Mem    182.888529  0.327292   784.054688     30.37500       814.429688
+467     siglip2-so400m-patch14-384-vision     prefill                1                              256          H100                   4           8      Comp    272.135827  0.483612   784.054688     60.75000       844.804688
+================================================================================
+Performance evaluation completed
+================================================================================

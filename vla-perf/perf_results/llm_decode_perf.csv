@@ -1,0 +1,15 @@
+model.name,model.stage,model.dec_steps,model.seq_len_inference_prefill,hardware.name,hardware.num_chips,batch_size,time_ms
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,1,1,13.00819742719222
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,1,2,19.16082073717012
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,1,4,31.466067357125915
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,2,1,6.962179237586485
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,2,2,10.04257141656581
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,2,4,16.203355774524457
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,2,8,28.52492449044176
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,2,16,56.07796749807918
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,4,1,3.9701701427836174
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,4,2,5.514446756263656
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,4,4,8.60299998322373
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,4,8,14.780106437143882
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,4,16,27.13431934498418
+meta-llama/Llama-3.1-8B,decode,1,102400,A100_80GB,4,32,53.16987572435969

@@ -1,0 +1,50 @@
+\begin{table*}[t]
+    \centering
+    \setlength\dashlinedash{0.2pt}
+    \setlength\dashlinegap{1.5pt}
+    \begin{footnotesize}
+    \caption{Roofline model validation against real $\pi_0$ Triton inference latencies from~\cite{ma2025runningvlasrealtimespeed}. Benchmark conditions: 10 flow matching steps, chunk size 63, empty prompt, batch size 1, bf16 precision. Accuracy denotes the ratio of the roofline prediction to the real measurement ($\text{roofline} / \text{real} \times 100\%$).}
+    \label{tab:validate_perf}
+    \scalebox{1.0}{
+        \begin{tabular}{L{10em} R{5.5em} R{5.5em} R{5.5em} R{5.5em} R{5.5em} R{5.5em}}
+\toprule
+& \multicolumn{3}{c}{\textbf{RTX 4090}} & \multicolumn{3}{c}{\textbf{RTX 5090}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+& \multicolumn{1}{c}{\textbf{1 camera}}
+& \multicolumn{1}{c}{\textbf{2 cameras}}
+& \multicolumn{1}{c}{\textbf{3 cameras}}
+& \multicolumn{1}{c}{\textbf{1 camera}}
+& \multicolumn{1}{c}{\textbf{2 cameras}}
+& \multicolumn{1}{c}{\textbf{3 cameras}} \\
+\midrule
+Roofline (ours)
+& 14.7 ms
+& 22.5 ms
+& 30.4 ms
+& 10.0 ms
+& 16.1 ms
+& 22.4 ms
+\\
+\hdashline
+Real perf.\ (Triton)
+& 20.0 ms
+& 27.3 ms
+& 36.8 ms
+& 17.6 ms
+& 24.0 ms
+& 31.9 ms
+\\
+\hdashline
+Accuracy
+& \cellcolor{lightgray} 73.3\%
+& \cellcolor{lightgray} 82.3\%
+& \cellcolor{lightgray} 82.6\%
+& \cellcolor{lightgray} 56.8\%
+& \cellcolor{lightgray} 67.3\%
+& \cellcolor{lightgray} 70.2\%
+\\
+\bottomrule
+\end{tabular}
+    }
+    \end{footnotesize}
+\end{table*}

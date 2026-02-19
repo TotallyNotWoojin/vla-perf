@@ -1,0 +1,110 @@
+====================================================================================================
+DREAMZERO PERFORMANCE ANALYSIS
+====================================================================================================
+System: B100 (single GPU)
+Precision: bf16
+Batch Size: 1
+
+====================================================================================================
+DREAMZERO MODEL SPECIFICATIONS
+====================================================================================================
+
+Image Encoder (dreamzero-image-encoder):
+  Parameters: 839.02M
+  Hidden Size: 1280
+  Layers: 32
+  Attention Heads: 16
+
+Text Encoder (dreamzero-text-encoder):
+  Parameters: 4.76B
+  Hidden Size: 4096
+  Layers: 24
+  Attention Heads: 64
+
+DiT Backbone (dreamzero-dit):
+  Parameters: 12.69B ← MAIN BOTTLENECK
+  Hidden Size: 5120
+  Layers: 40
+  Attention Heads: 40
+  FFN Size: 13824
+
+Total Parameters: 18.29B
+
+Denoising Variants:
+  Default:  16 steps (standard 4-step inference)
+  Flash:    1 step (single-step inference)
+
+Paper Benchmarks:
+  GB200 Flash (1-step):   ~150 ms
+  GB200 Default (4-step): ~350 ms
+  H100 Default (4-step):  ~630 ms
+
+
+
+
+====================================================================================================
+COMPARING DREAMZERO DENOISING VARIANTS
+====================================================================================================
+
+Evaluating Default variant (16 steps)...
+Evaluating dreamzero image encoder...
+Evaluating dreamzero text encoder...
+Evaluating dreamzero DiT (16 denoising steps)...
+Computing dreamzero end-to-end latency...
+
+Evaluating Flash variant (1 steps)...
+Evaluating dreamzero image encoder...
+Evaluating dreamzero text encoder...
+Evaluating dreamzero DiT (1 denoising steps)...
+Computing dreamzero end-to-end latency...
+
+====================================================================================================
+VARIANT COMPARISON
+====================================================================================================
+
+Variant       Steps   E2E Latency (ms)    Throughput (Hz)    Speedup
+----------------------------------------------------------------------------------------------------
+Default          16             137.13               7.29   baseline
+Flash             1              10.36              96.51     13.23x
+
+
+Results saved to perf_results/dreamzero_variants.csv
+
+
+
+====================================================================================================
+DETAILED ANALYSIS: DEFAULT VARIANT (4 STEPS)
+====================================================================================================
+Evaluating dreamzero image encoder...
+Evaluating dreamzero text encoder...
+Evaluating dreamzero DiT (16 denoising steps)...
+Computing dreamzero end-to-end latency...
+
+====================================================================================================
+DREAMZERO PERFORMANCE SUMMARY
+====================================================================================================
+
+System: B100, Batch Size: 1, Denoising Steps: 16
+----------------------------------------------------------------------------------------------------
+  Image Encoder:      0.79 ms  (  0.6%)  [Comp]
+  Text Encoder:       1.12 ms  (  0.8%)  [Mem]
+  DiT (16 steps):   135.22 ms  ( 98.6%)  [Comp]
+  --------------------------------------------------------------------------------
+  TOTAL E2E:        137.13 ms
+  Throughput:         7.29 Hz
+
+====================================================================================================
+ANALYSIS COMPLETE
+====================================================================================================
+
+Key Insights:
+  1. DiT backbone dominates latency (runs N denoising steps)
+  2. Image/Text encoders are relatively fast (run once)
+  3. DiT caching (16→4 steps) provides ~4x speedup
+  4. Flash variant (1 step) provides ~16x speedup vs standard
+
+Note: These are theoretical estimates. Actual performance includes:
+  - CUDA kernel optimizations (torch.compile, CUDA graphs)
+  - Post-training quantization (FP8/NVFP4 on GB200)
+  - CFG parallelism (2 GPUs for conditional/unconditional)
+  - VAE encoding/decoding overhead (not modeled here)

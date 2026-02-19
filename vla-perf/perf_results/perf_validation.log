@@ -1,0 +1,72 @@
+Performance Validation Script
+Comparing roofline model vs realtime-vla measured latencies
+
+========================================================================================================================
+PERFORMANCE VALIDATION: Roofline Model vs realtime-vla Measurements
+========================================================================================================================
+Reference: https://github.com/Dexmal/realtime-vla
+Benchmark conditions: 10 flow steps, chunk size 63, empty prompt, batch=1, bf16
+Systems: ['RTX_4090', 'RTX_5090']
+Views: [1, 2, 3]
+
+Evaluating Pi0 on RTX_4090 with 1 view(s)...
+  Vision: 1.34ms (Comp), VLM: 6.21ms (Comp), Action: 7.12ms (Mem)
+  Roofline: 14.67ms | Real Pi0: 20.0ms
+Evaluating Pi0 on RTX_4090 with 2 view(s)...
+  Vision: 2.68ms (Comp), VLM: 12.53ms (Comp), Action: 7.26ms (Mem)
+  Roofline: 22.48ms | Real Pi0: 27.3ms
+Evaluating Pi0 on RTX_4090 with 3 view(s)...
+  Vision: 4.02ms (Comp), VLM: 18.98ms (Comp), Action: 7.41ms (Mem)
+  Roofline: 30.40ms | Real Pi0: 36.8ms
+Evaluating Pi0 on RTX_5090 with 1 view(s)...
+  Vision: 1.05ms (Comp), VLM: 4.90ms (Comp), Action: 4.05ms (Mem)
+  Roofline: 10.00ms | Real Pi0: 17.6ms
+Evaluating Pi0 on RTX_5090 with 2 view(s)...
+  Vision: 2.09ms (Comp), VLM: 9.89ms (Comp), Action: 4.16ms (Mem)
+  Roofline: 16.15ms | Real Pi0: 24.0ms
+Evaluating Pi0 on RTX_5090 with 3 view(s)...
+  Vision: 3.14ms (Comp), VLM: 14.98ms (Comp), Action: 4.28ms (Mem)
+  Roofline: 22.40ms | Real Pi0: 31.9ms
+
+Results saved to perf_results/perf_validation_vs_realtime_vla.csv
+
+========================================================================================================================
+DETAILED COMPARISON: Pi0 Roofline vs Real (realtime-vla)
+========================================================================================================================
+Benchmark: 10 flow steps, chunk size 63, empty prompt, batch=1, bf16
+------------------------------------------------------------------------------------------------------------------------
+System       Views  VLM Seq   Vision      VLM   Action  Roofline     Real  Roofline %
+                      (tok)     (ms)     (ms)     (ms)      (ms)     (ms)            
+------------------------------------------------------------------------------------------------------------------------
+RTX_4090         1      256     1.34     6.21     7.12     14.67     20.0       73.3%
+RTX_4090         2      512     2.68    12.53     7.26     22.48     27.3       82.3%
+RTX_4090         3      768     4.02    18.98     7.41     30.40     36.8       82.6%
+RTX_5090         1      256     1.05     4.90     4.05     10.00     17.6       56.8%
+RTX_5090         2      512     2.09     9.89     4.16     16.15     24.0       67.3%
+RTX_5090         3      768     3.14    14.98     4.28     22.40     31.9       70.2%
+------------------------------------------------------------------------------------------------------------------------
+
+==============================================================================================================
+BENCHMARK MATRIX: Roofline vs Real (E2E latency in ms)
+==============================================================================================================
+                 RTX_4090 (1v)   RTX_4090 (2v)   RTX_4090 (3v)   RTX_5090 (1v)   RTX_5090 (2v)   RTX_5090 (3v)  
+----------------------------------------------------------------------------------------------------------------
+Roofline              14.7            22.5            30.4            10.0            16.1            22.4      
+Pi0 Triton            20.0            27.3            36.8            17.6            24.0            31.9      
+Roofline %           73.3%           82.3%           82.6%           56.8%           67.3%           70.2%      
+----------------------------------------------------------------------------------------------------------------
+
+============================================================
+SUMMARY STATISTICS: % of Roofline Achieved
+============================================================
+  Mean roofline achieved:  72.1%
+  Min roofline achieved:   56.8%
+  Max roofline achieved:   82.6%
+
+Interpretation:
+  Roofline % = roofline_time / real_time * 100
+  100% = real matches roofline (perfect HW utilization)
+   75% = real is 1.33x slower than roofline
+   50% = real is 2x slower than roofline
+  >100% = roofline overestimates latency (too conservative)
+LaTeX table saved to paper_tables/validate_perf.tex
