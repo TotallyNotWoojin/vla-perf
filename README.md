@@ -2,6 +2,8 @@
 
 This repository provides analytical performance modeling tools for **Vision-Language-Action (VLA)** models — the emerging class of foundation models that combine vision encoders, language model backbones, and action prediction heads to control robots directly from images and language instructions. 
 
+📄 Paper: [How Fast Can I Run My VLA? Demystifying VLA Inference Performance with VLA-Perf](https://arxiv.org/pdf/2602.18397)
+
 <p align="center">
   <img src="files/Overview-VLA-Perf.png" width="90%">
 </p>
@@ -136,6 +138,19 @@ We extend GenZ with several additions for VLA workloads:
 - **Parallelism** — tensor parallel and pipeline parallel strategies across multi-GPU setups.
 
 For more details on the base GenZ framework, see the [GenZ README](genz/README.md).
+
+## Citation
+
+If you find this repository or the paper helpful, we would appreciate it if you could cite our work:
+
+```
+@article{jiang2026fast,
+  title={How Fast Can I Run My VLA? Demystifying VLA Inference Performance with VLA-Perf},
+  author={Jiang, Wenqi and Clemons, Jason and Sankaralingam, Karu and Kozyrakis, Christos},
+  journal={arXiv preprint arXiv:2602.18397},
+  year={2026}
+}
+```
 
 ## License
 
