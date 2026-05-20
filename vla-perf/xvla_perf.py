@@ -663,7 +663,8 @@ def compare_denoising_steps_action_dimensions(
         sys_df = df[df["system"] == system]
         pivot = sys_df.pivot(index="denoising_steps", columns="action_dim", values="e2e_ms")
         logger.info(f"\n  System: {system} — E2E latency (ms) grid")
-        header = f"{'Steps \\ Dim':<14}" + "".join(f"{d:>10}" for d in action_dim_range)
+        col_label = "Steps \\ Dim"
+        header = f"{col_label:<14}" + "".join(f"{d:>10}" for d in action_dim_range)
         logger.info(header)
         logger.info("-" * (14 + 10 * len(action_dim_range)))
         for steps in step_range:

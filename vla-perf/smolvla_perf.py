@@ -695,7 +695,8 @@ def compare_denoising_steps_action_lengths(
         sys_df = df[df["system"] == system]
         logger.info(f"\n  System: {system} — E2E latency (ms) grid")
         pivot = sys_df.pivot(index="denoising_steps", columns="action_chunk", values="e2e_ms")
-        header = f"{'Steps \\ Chunk':<14}" + "".join(f"{c:>10}" for c in chunk_range)
+        col_label = "Steps \\ Chunk"
+        header = f"{col_label:<14}" + "".join(f"{c:>10}" for c in chunk_range)
         logger.info(header)
         logger.info("-" * (14 + 10 * len(chunk_range)))
         for steps in step_range:

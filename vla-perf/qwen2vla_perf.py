@@ -637,7 +637,8 @@ def compare_action_tokens_context_lengths(
         sys_df = df[df["system"] == system]
         pivot = sys_df.pivot(index="action_tokens", columns="context_length", values="e2e_ms")
         logger.info(f"\n  System: {system} — E2E latency (ms): rows=action_tokens, cols=context_length")
-        header = f"{'Act Tok \\ Ctx':<14}" + "".join(f"{c:>10}" for c in context_lengths_range)
+        col_label = "Act Tok \\ Ctx"
+        header = f"{col_label:<14}" + "".join(f"{c:>10}" for c in context_lengths_range)
         logger.info(header)
         logger.info("-" * (14 + 10 * len(context_lengths_range)))
         for at in action_tokens_range:
