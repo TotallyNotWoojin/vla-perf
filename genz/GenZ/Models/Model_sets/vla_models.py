@@ -299,6 +299,148 @@ pi0_6_action_expert_config = ModelConfig(
     hidden_act="gelu",
 )
 
+########################################
+# SmolVLA (~450M total)
+# https://arxiv.org/abs/2506.01844
+#
+# Architecture:
+#   - Vision: SigLIP-SO400M/14 (400M, same as pi0)
+#   - VLM backbone: SmolLM2-1.7B (24 layers, 2048 hidden)
+#   - Action Expert: Flow Matching Transformer (~100M, cross-attends to VLM)
+#
+# Inference pipeline:
+#   1. Vision encoding (SigLIP prefill)
+#   2. VLM prefill (SmolLM2 processes visual + text tokens)
+#   3. Action Expert flow matching (N denoising steps via parallel decode)
+########################################
+
+smolvla_vision_config = copy.deepcopy(siglip2_so400m_vision_config)
+smolvla_vision_config.model = "vla/smolvla-vision"
+
+smollm2_1p7b_config = ModelConfig(
+    model="vla/smollm2-1.7b",
+    vocab_size=49152,
+    max_model_len=8192,
+    hidden_size=2048,
+    intermediate_size=8192,
+    num_ffi=2,
+    num_encoder_layers=0,
+    num_decoder_layers=24,
+    num_attention_heads=32,
+    num_key_value_heads=32,
+    head_dim=64,
+    hidden_act="silu",
+)
+
+# ~100M flow matching transformer; cross-attends to VLM hidden states
+smolvla_action_expert_config = ModelConfig(
+    model="vla/smolvla-action-expert",
+    vocab_size=0,
+    max_model_len=1024**3,
+    hidden_size=768,
+    intermediate_size=3072,
+    num_ffi=2,
+    num_encoder_layers=0,
+    num_decoder_layers=10,
+    num_attention_heads=12,
+    num_key_value_heads=12,
+    head_dim=64,
+    hidden_act="gelu",
+)
+
+
+########################################
+# Qwen2-VL-7B Vision Encoder
+# (shared backbone for Qwen2-VL-based VLAs such as CogACT)
+# https://arxiv.org/abs/2409.12191
+#
+# Qwen2-VL uses a native-resolution ViT with 2×2 spatial token merging.
+# At 224px input with patch_size=14: 16×16=256 raw patches → 64 merged tokens.
+########################################
+
+qwen2_vl_7b_vision_config = ModelConfig(
+    model="vla/qwen2-vl-7b-vision",
+    vocab_size=0,
+    max_model_len=256,    # 256 raw patches (224px / 14px patch); merged to 64 by projector
+    hidden_size=1152,
+    intermediate_size=4608,
+    num_ffi=1,
+    num_encoder_layers=32,
+    num_decoder_layers=0,
+    num_attention_heads=16,
+    num_key_value_heads=16,
+    head_dim=72,           # 1152 / 16 = 72
+    hidden_act="gelu",
+)
+
+# Qwen2-VL-7B language model backbone
+qwen2_vl_7b_llm_config = ModelConfig(
+    model="vla/qwen2-vl-7b-llm",
+    vocab_size=152064,
+    max_model_len=32768,
+    hidden_size=3584,
+    intermediate_size=18944,
+    num_ffi=2,              # SwiGLU gate + up projections
+    num_encoder_layers=0,
+    num_decoder_layers=28,
+    num_attention_heads=28,
+    num_key_value_heads=4,  # GQA
+    head_dim=128,           # 3584 / 28 = 128
+    hidden_act="silu",
+)
+
+
+########################################
+# X-VLA (~0.9B total)
+# https://arxiv.org/abs/2510.10274
+#
+# Architecture:
+#   - VLM: Florence-2-Large (DaViT vision encoder + BART-style text encoder, 0.77B)
+#     Modeled as a single encoder-only prefill producing fused vision+language tokens.
+#   - Policy: SoftPromptedTransformer (24 layers, 1024 hidden)
+#     Processes Florence-2 outputs with learnable embodiment-specific soft prompts.
+#   - Action: Flow Matching denoiser (folded into policy transformer; ~30 steps)
+#
+# Inference pipeline:
+#   1. Florence-2 encoding (vision + text prefill)
+#   2. Policy transformer prefill (with soft prompts + Florence-2 tokens)
+#   3. Flow matching parallel decode (N denoising steps)
+########################################
+
+# Florence-2-Large approximated as a single encoder-only transformer
+# (DaViT hierarchical ViT compressed to equivalent flat-transformer FLOPs)
+florence2_large_encoder_config = ModelConfig(
+    model="vla/florence2-large-encoder",
+    vocab_size=51289,       # Florence-2 vocabulary
+    max_model_len=576,      # fused vision + text tokens at 768px input
+    hidden_size=1024,
+    intermediate_size=4096,
+    num_ffi=1,
+    num_encoder_layers=24,
+    num_decoder_layers=0,
+    num_attention_heads=16,
+    num_key_value_heads=16,
+    head_dim=64,
+    hidden_act="gelu",
+)
+
+# X-VLA SoftPromptedTransformer policy backbone
+xvla_policy_config = ModelConfig(
+    model="vla/xvla-policy",
+    vocab_size=0,
+    max_model_len=1024**3,
+    hidden_size=1024,
+    intermediate_size=4096,
+    num_ffi=2,
+    num_encoder_layers=0,
+    num_decoder_layers=24,
+    num_attention_heads=16,
+    num_key_value_heads=16,
+    head_dim=64,
+    hidden_act="silu",
+)
+
+
 vla_models = get_all_model_configs(__name__)
 
 vla_models.update(
@@ -320,5 +462,15 @@ vla_models.update(
 		"pi0.6-vision": pi0_6_vision_config,
         "pi0.6-vlm": pi0_6_vlm_config,
         "pi0.6-action-expert": pi0_6_action_expert_config,
+        # SmolVLA components
+        "smolvla-vision": smolvla_vision_config,
+        "smollm2-1.7b": smollm2_1p7b_config,
+        "smolvla-action-expert": smolvla_action_expert_config,
+        # Qwen2-VL-7B components (backbone for Qwen2-VL-based VLAs)
+        "qwen2-vl-7b-vision": qwen2_vl_7b_vision_config,
+        "qwen2-vl-7b-llm": qwen2_vl_7b_llm_config,
+        # X-VLA components
+        "florence2-large-encoder": florence2_large_encoder_config,
+        "xvla-policy": xvla_policy_config,
     }
 )
