@@ -405,7 +405,7 @@ if __name__ == "__main__":
     logger.info("=" * 80)
     
     # Default configuration
-    system_list = ["A100_80GB", "H100", "B100", "Jetson_AGX_Thor"]
+    system_list = ["A100_80GB", "H100", "B100", "RTX_3090", "RTX_4090", "Jetson_AGX_Thor"]
     num_device_list = get_powers_of_two_up_to(4)
     bits = "bf16"
     

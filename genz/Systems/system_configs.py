@@ -158,6 +158,13 @@ system_configs: Dict[str, Dict[str, Any]] = {
     },
 
     # ==================== PC GPU Family ====================
+    # NVIDIA RTX 3090 - Ampere architecture (GA102)
+    # 10,496 CUDA cores, 328 3rd-gen Tensor Cores, 24GB GDDR6X
+    # BF16/FP16 tensor TFLOPS are dense (consistent with RTX 4090 convention)
+    'RTX_3090': {
+        'Flops': {'fp32': 35.58, 'bf16': 142, 'fp16': 142, 'int8': 284, 'int4': 568},
+        'Memory_size': 24, 'Memory_BW': 936, 'ICN': 0, 'real_values': True
+    },
     # NVIDIA RTX 4090 - Ada Lovelace architecture
     'RTX_4090': {
         'Flops': {'fp32': 82.6, 'bf16': 165, 'fp16': 165, 'int8': 330, 'int4': 660},

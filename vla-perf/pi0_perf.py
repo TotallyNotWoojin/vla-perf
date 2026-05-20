@@ -4109,7 +4109,7 @@ if __name__ == "__main__":
     logger = setup_logging("perf_results/pi0_perf.log")
     
     # Default configuration
-    system_list_all = ["A100_80GB", "H100", "B100", "RTX_4090", "Jetson_AGX_Thor"]
+    system_list_all = ["A100_80GB", "H100", "B100", "RTX_3090", "RTX_4090", "Jetson_AGX_Thor"]
     num_device_list = get_powers_of_two_up_to(4)
     bits = "bf16"
     denoising_steps = 10  # Default flow matching steps
